@@ -21,7 +21,6 @@ class ApiFeatures {
         const removeFields = ["keyword", "page", "limit"];
 
         removeFields.forEach((key) => delete queryCopy[key]);
-
         // Filter For Price and Rating
 
         let queryStr = JSON.stringify(queryCopy);

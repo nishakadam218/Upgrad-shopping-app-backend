@@ -6,6 +6,7 @@ const ApiFeatures = require("../utils/apifeatures");
 //create product --admin
 
 exports.createProduct = catchAsyncError(async(req, res, next) => {
+    req.body.user = req.user.id;
     const product = await Product.create(req.body)
 
     res.status(201).json({
@@ -15,8 +16,10 @@ exports.createProduct = catchAsyncError(async(req, res, next) => {
 });
 // get all products
 exports.getAllProducts = catchAsyncError(async(req, res, next) => {
-    const apiFeature = new ApiFeatures(Product.find(), req.query).search()
-    const products = apiFeature.query;
+    const resultPerPage = 5;
+
+    const apiFeature = new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage)
+    const products = await apiFeature.query;
 
     res.status(200).json({
         success: true,
