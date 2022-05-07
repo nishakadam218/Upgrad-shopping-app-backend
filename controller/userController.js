@@ -17,8 +17,10 @@ exports.registerUser = catchAsyncError(async(req, res, next) => {
         emailAddress,
         contactNumber
     });
+
     sendToken(user, 201, res);
 });
+
 //login user
 exports.loginUser = catchAsyncError(async(req, res, next) => {
     const { emailAddress, password } = req.body;
@@ -54,5 +56,14 @@ exports.logout = catchAsyncError(async(req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Logged Out",
+    });
+});
+// Get User Detail
+exports.getUserDetails = catchAsyncError(async(req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user,
     });
 });

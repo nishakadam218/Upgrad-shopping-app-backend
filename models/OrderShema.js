@@ -14,6 +14,10 @@ const OrderSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
+        street: {
+            type: String,
+            required: true,
+        },
 
         state: {
             type: String,
